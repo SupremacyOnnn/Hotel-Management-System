@@ -8,12 +8,14 @@ export const roomApiSLice = apiSlice.injectEndpoints({
         url: ROOM_URL,
       }),
       keepUnusedDataFor: 5,
+      providesTags: ["Hotel"],
     }),
     getRoomsByHotelID: builder.query({
       query: (id) => ({
         url: `${ROOM_URL}/${id}`,
       }),
       keepUnusedDataFor: 5,
+      providesTags: ["Hotel"],
     }),
   }),
 });

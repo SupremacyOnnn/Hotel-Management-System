@@ -14,12 +14,16 @@ import {
 import HomeScreen from "./screens/HomeScreen";
 import HotelScreen from "./screens/HotelScreen";
 import Try from "./screens/Try";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomeScreen />}></Route>
       <Route path="/:id" element={<HotelScreen />}></Route>
+      <Route path="/login" element={<LoginScreen />}></Route>
+      <Route path="/signup" element={<RegisterScreen />}></Route>
       <Route path="/try" element={<Try />}></Route>
     </Route>
   )

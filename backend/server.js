@@ -6,7 +6,6 @@ import hotelRoutes from "../backend/routes/expRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
 import countryRoutes from "./routes/countryRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import cors from "cors";
 import cookieParser from "cookie-parser";
 
 connectDB();
@@ -14,7 +13,7 @@ connectDB();
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors({ origin: "http://localhost:3000" }));
+// app.use(cors({ origin: "http://localhost:3000" }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

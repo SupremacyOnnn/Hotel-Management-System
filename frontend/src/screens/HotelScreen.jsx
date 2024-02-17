@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import ImageCarousel from "../components/ImageCauracel";
 import SegementedCauracel2 from "../components/SegementedCauracel2";
 import RoomCarousel from "../components/RoomCarousel";
-import { useGetRoomsByHotelIDQuery } from "../slices/roomSlice";
+import { useGetRoomsByHotelIDQuery } from "../slices/roomApiSlice";
 
 const HotelScreen = () => {
   const { id: hotelId } = useParams();

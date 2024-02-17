@@ -70,4 +70,9 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { getLoginUser, registerUser };
+const logoutUser = (req, res) => {
+  res.clearCookie("jwt"); // Clear the JWT cookie
+  res.status(200).json({ message: "Logout successful" });
+};
+
+export { getLoginUser, registerUser, logoutUser };
