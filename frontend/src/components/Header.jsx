@@ -1,13 +1,35 @@
-import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
+import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import logo from "../assets/logo.png";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  FaUser,
+  FaSignOutAlt,
+  FaSignInAlt,
+  FaRegistered,
+} from "react-icons/fa";
+import { logout } from "../slices/authSlice";
+import { useLogoutMutation } from "../slices/userApiSlice";
 
 const Header = () => {
-  const [authToken, setAuthToken] = useState(false);
-  // setAuthToken(false);
+  const { userInfo } = useSelector((state) => state.auth);
+  const [logoutApiCall] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      // NOTE: here we need to reset cart state for when a user logs out so the next
+      // user doesn't inherit the previous users cart and shipping
+      // dispatch(resetCart());
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <>
       <Navbar bg="white" expand="lg">
@@ -23,20 +45,42 @@ const Header = () => {
                   width: "auto",
                   height: "auto",
                 }}
-                alt="ProShop"
+                alt="The Hotel"
               />
+              {"  "}
+              <span className="eb-garamond">The Hotel</span>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto ">
-              <Nav.Link href="#home">Destination</Nav.Link>
-              <Nav.Link href="#link">Experiences</Nav.Link>
-              <Nav.Link href="#link">Special Offers</Nav.Link>
-              {authToken ? (
-                <Nav.Link href="#link">Log In</Nav.Link>
+              {userInfo ? (
+                <>
+                  <NavDropdown title={userInfo.name} id="username">
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>
+                        <FaUser /> Profile
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      <FaSignOutAlt /> Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : (
-                <Nav.Link href="#link">Sign Up</Nav.Link>
+                // <Nav.Link href="#link"></Nav.Link>
+                <>
+                  <LinkContainer to="/login">
+                    <Nav.Link>
+                      <FaSignInAlt /> Log In
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/signup">
+                    <Nav.Link>
+                      <FaRegistered /> Sign Up
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
