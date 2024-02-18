@@ -7,9 +7,7 @@ const CheckAvailability = () => {
       <Card>
         <Card.Body className="d-flex flex-wrap">
           <Dropdown align="end" className="me-auto ms-auto" auto>
-            <Dropdown.Toggle variant="light">
-              Select Country
-            </Dropdown.Toggle>
+            <Dropdown.Toggle variant="light">Select Country</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>Action</Dropdown.Item>
               <Dropdown.Item>Another action</Dropdown.Item>
@@ -17,9 +15,7 @@ const CheckAvailability = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown align="end" className="me-auto ms-auto" auto>
-            <Dropdown.Toggle variant="light">
-              Select Country
-            </Dropdown.Toggle>
+            <Dropdown.Toggle variant="light">Select Country</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>Action</Dropdown.Item>
               <Dropdown.Item>Another action</Dropdown.Item>
@@ -27,9 +23,7 @@ const CheckAvailability = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown align="end" className="me-auto ms-auto" auto>
-            <Dropdown.Toggle variant="light">
-              Select Country
-            </Dropdown.Toggle>
+            <Dropdown.Toggle variant="light">Select Country</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>Action</Dropdown.Item>
               <Dropdown.Item>Another action</Dropdown.Item>
@@ -37,16 +31,16 @@ const CheckAvailability = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown align="end" className="me-auto ms-auto" auto>
-            <Dropdown.Toggle variant="light">
-              Select Country
-            </Dropdown.Toggle>
+            <Dropdown.Toggle variant="light">Select Country</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>Action</Dropdown.Item>
               <Dropdown.Item>Another action</Dropdown.Item>
               <Dropdown.Item>Something else</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Button variant="warning" className="me-auto ms-auto">Check Avialability</Button>
+          <Button variant="warning" className="me-auto ms-auto">
+            Check Avialability
+          </Button>
           {/* Add more Dropdown components here */}
         </Card.Body>
       </Card>

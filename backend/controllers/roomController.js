@@ -1,8 +1,8 @@
-import Room from "../models/roomModel.js";
+import HotelRoom from "../models/roomModel.js";
 
 const getAllRooms = async (req, res) => {
   try {
-    const rooms = await Room.find();
+    const rooms = await HotelRoom.find();
     res.json(rooms);
   } catch (err) {
     console.error("Error fetching Rooms:", err);
@@ -13,7 +13,7 @@ const getAllRooms = async (req, res) => {
 const getRoomsByHotelId = async (req, res) => {
   const { hotelId } = req.params;
   try {
-    const rooms = await Room.findOne({ hotelRef: hotelId });
+    const rooms = await HotelRoom.find({ hotelRef: hotelId });
     res.json(rooms);
   } catch (err) {
     console.error("Error fetching Rooms:", err);
@@ -22,14 +22,32 @@ const getRoomsByHotelId = async (req, res) => {
 };
 
 const createRoom = async (req, res) => {
-  const { roomRef, rooms } = req.body; // corrected from RoomRef to roomRef
+  // const rooms = req.body; // corrected from RoomRef to roomRef
+  // try {
+  //   const room = new HotelRoom(rooms); // corrected from Room to room
+  //   await room.save();
+  //   res.status(201).json(room);
+  // } catch (err) {
+  //   console.error("Error creating Room:", err);
+  //   res.status(500).json({ error: "Internal Server Error" });
+  // }
   try {
-    const room = new Room({ roomRef, rooms }); // corrected from Room to room
-    await room.save();
-    res.status(201).json(room);
-  } catch (err) {
-    console.error("Error creating Room:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    let roomData = req.body;
+    if (!Array.isArray(roomData)) {
+      roomData = [roomData];
+    }
+    const createdRooms = [];
+    for (const data of roomData) {
+      const newRoom = new HotelRoom(data);
+      await newRoom.save();
+      createdRooms.push(newRoom);
+    }
+    res
+      .status(201)
+      .json({ message: "Rooms created successfully", rooms: createdRooms });
+  } catch (error) {
+    console.error("Error creating rooms:", error);
+    res.status(500).json({ error: "Failed to create rooms" });
   }
 };
 
@@ -37,7 +55,7 @@ const updateRoom = async (req, res) => {
   const { roomId } = req.params;
   const { roomRef, rooms } = req.body;
   try {
-    const room = await Room.findByIdAndUpdate(
+    const room = await HotelRoom.findByIdAndUpdate(
       roomId,
       { roomRef, rooms },
       { new: true }
@@ -55,7 +73,7 @@ const updateRoom = async (req, res) => {
 const deleteRoom = async (req, res) => {
   const { roomId } = req.params;
   try {
-    const room = await Room.findByIdAndDelete(roomId);
+    const room = await HotelRoom.findByIdAndDelete(roomId);
     if (!room) {
       return res.status(404).json({ error: "Room not found" });
     }
@@ -66,4 +84,4 @@ const deleteRoom = async (req, res) => {
   }
 };
 
-export { getAllRooms, getRoomsByHotelId };
+export { getAllRooms, getRoomsByHotelId, createRoom };

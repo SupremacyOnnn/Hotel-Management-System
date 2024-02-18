@@ -77,6 +77,6 @@ const expSchema = new mongoose.Schema({
   // ],
 });
 
-const Exp = mongoose.model("hots", expSchema);
+const Exp = mongoose.model("Hot", expSchema);
 
 export default Exp;

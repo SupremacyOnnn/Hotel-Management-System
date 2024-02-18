@@ -78,7 +78,7 @@ const HotelScreen = () => {
         <p>{hotelData.inspiration}</p>
       </div>
       <div>
-        <RoomCarousel carouselItems={roomData.rooms} />
+        <RoomCarousel carouselItems={roomData} />
       </div>
       {hotelData.dine ? (
         <div className="m-2">

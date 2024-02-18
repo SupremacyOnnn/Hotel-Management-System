@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import Caurasel from "../components/Caurasel";
 import CheckAvailability from "../components/CheckAvailability";
 import { useGetHotelByCountryQuery } from "../slices/hotelApiSlice";
+import { useGetCountriesQuery } from "../slices/countryApiSlice";
 import { Button, Container } from "react-bootstrap";
 import SegementedCauracel from "../components/SegementedCauracel";
 import Loader from "../components/Loader";
 
 const HomeScreen = () => {
   // const { data } = useGetHotelsQuery();
-
-  const buttonLabels = ["India", "UAE", "Indonesia"];
+  const {
+    data: buttonLabels,
+    isCountryLoading,
+    isCoutryError,
+  } = useGetCountriesQuery();
+  // const buttonLabels = ["India", "UAE", "Indonesia"];
   const CarouselItems = [
     {
       picture: "./image/c2.jpg",
@@ -35,7 +40,7 @@ const HomeScreen = () => {
     isLoading,
     isError,
   } = useGetHotelByCountryQuery(selectedButton);
-  if (isLoading) {
+  if (isLoading || isCountryLoading) {
     return (
       <div>
         <Loader></Loader>
@@ -43,7 +48,7 @@ const HomeScreen = () => {
     );
   }
 
-  if (isError) {
+  if (isError || isCoutryError) {
     return <div>Error loading hotel data</div>;
   }
   const hotelsDetails = hotels
@@ -56,12 +61,12 @@ const HomeScreen = () => {
       }))
     : [];
 
-  // const handelClick = () => {
-  //   console.log(hotelsDetails);
-  //   // console.log(selectedButton);
-  //   // console.log(hotels);
-  //   // console.log(hotelsWithPictures);
-  // };
+  const handelClick = () => {
+    console.log(buttonLabels);
+    // console.log(selectedButton);
+    // console.log(hotels);
+    // console.log(hotelsWithPictures);
+  };
 
   return (
     <>
@@ -85,17 +90,17 @@ const HomeScreen = () => {
           <Button
             key={index}
             variant="warning"
-            value={label}
+            value={label.country}
             onClick={(e) => setSelectedButton(e.target.value)}
             disabled={selectedButton === index}
             className="mx-auto country-button"
           >
-            {label}
+            {label.country}
           </Button>
         ))}
       </Container>
       <SegementedCauracel carouselItems={hotelsDetails} />
-      {/* <Button onClick={handelClick}>Click</Button> */}
+      <Button onClick={handelClick}>Click</Button>
     </>
   );
 };
