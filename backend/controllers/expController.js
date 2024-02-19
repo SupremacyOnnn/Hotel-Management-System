@@ -89,6 +89,27 @@ const getHotelsByCountry = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+const getHotelsNameAndIdByCountry = async (req, res) => {
+  const { countryName } = req.params; // Assuming the country name is passed in the request params
+
+  try {
+    // Find hotels in the specified country
+    const hotels = await Exp.find({ country: countryName }, "name _id");
+
+    // Extract hotel names and IDs
+    const hotelData = hotels.map((hotel) => ({
+      id: hotel._id,
+      name: hotel.name,
+    }));
+
+    // Return the hotel data
+    res.json(hotelData);
+  } catch (error) {
+    // Handle any errors
+    console.error("Error fetching hotels by country:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 export {
   createHotel,
@@ -97,4 +118,5 @@ export {
   updateHotelById,
   deleteHotelById,
   getHotelsByCountry,
+  getHotelsNameAndIdByCountry,
 };

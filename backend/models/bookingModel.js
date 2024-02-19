@@ -16,12 +16,20 @@ const bookingSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  country: {
+    type: String,
+    required: true,
+  },
   startDate: {
     type: Date,
     required: true,
   },
   endDate: {
     type: Date,
+    required: true,
+  },
+  quantity: {
+    type: Number,
     required: true,
   },
   totalPrice: {

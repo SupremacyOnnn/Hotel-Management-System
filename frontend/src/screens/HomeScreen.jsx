@@ -8,26 +8,24 @@ import SegementedCauracel from "../components/SegementedCauracel";
 import Loader from "../components/Loader";
 
 const HomeScreen = () => {
-  // const { data } = useGetHotelsQuery();
   const {
     data: buttonLabels,
     isCountryLoading,
     isCoutryError,
   } = useGetCountriesQuery();
-  // const buttonLabels = ["India", "UAE", "Indonesia"];
   const CarouselItems = [
     {
-      picture: "./image/c2.jpg",
+      picture: "/image/c2.jpg",
       info: "Good Afternoon. Welcome to The Hotel.",
       about: "Ranked Number 1 Hotel Brand in the World",
     },
     {
-      picture: "./image/c1.jpg",
+      picture: "/image/c1.jpg",
       info: "Ranked Number 1 Hotel Brand in the World",
       about: "Travel + Leisure World’s Best Awards, 2022",
     },
     {
-      picture: "./image/c3.jpg",
+      picture: "/image/c3.jpg",
       info: "Featured in The World’s 50 Best Hotels",
       about: "The World’s 50 Best Hotels Academy, 2023.",
     },
@@ -62,7 +60,7 @@ const HomeScreen = () => {
     : [];
 
   const handelClick = () => {
-    console.log(buttonLabels);
+    // console.log(uniqueHotelsByCountry);
     // console.log(selectedButton);
     // console.log(hotels);
     // console.log(hotelsWithPictures);
@@ -71,7 +69,7 @@ const HomeScreen = () => {
   return (
     <>
       <Caurasel carouselItems={CarouselItems} />
-      <CheckAvailability />
+      <CheckAvailability country={buttonLabels} />
       <Container className="mt-2 eb-garamond">
         <h2>
           <i>What stirs the traveller in you</i>?
@@ -85,7 +83,7 @@ const HomeScreen = () => {
           adventure?
         </p>
       </Container>
-      <Container className="d-flex flex-wrap m-3">
+      <div className="d-flex flex-wrap m-3">
         {buttonLabels.map((label, index) => (
           <Button
             key={index}
@@ -93,12 +91,16 @@ const HomeScreen = () => {
             value={label.country}
             onClick={(e) => setSelectedButton(e.target.value)}
             disabled={selectedButton === index}
-            className="mx-auto country-button"
+            sm={12}
+            md={6}
+            lg={4}
+            xl={3}
+            className="mx-auto my-2 country-button"
           >
             {label.country}
           </Button>
         ))}
-      </Container>
+      </div>
       <SegementedCauracel carouselItems={hotelsDetails} />
       <Button onClick={handelClick}>Click</Button>
     </>

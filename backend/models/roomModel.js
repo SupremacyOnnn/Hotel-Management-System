@@ -1,38 +1,14 @@
 import mongoose from "mongoose";
-
-// // Define the schema for the room
-// const roomSchema = new mongoose.Schema({
-//   roomId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     // required: true,
-//     unique: true,
-//   },
-//   roomName: String,
-//   about: String,
-//   view: String,
-//   roomSize: String,
-//   qty: Number,
-//   picture: String,
-//   price: Number,
-//   booking: [String], // Assuming booking IDs are stored as strings
-// });
-
-// // Define the schema for hotel rooms
-// const hotelRoomsSchema = new mongoose.Schema({
-//   hotelRef: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "Hot",
-//   },
-//   rooms: [roomSchema], // Embedding room schema as subdocuments
-// });
-
-// Define the room schema
 const hotelRoomsSchema = new mongoose.Schema({
   hotelRef: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hot",
   },
   roomName: {
+    type: String,
+    required: true,
+  },
+  country: {
     type: String,
     required: true,
   },

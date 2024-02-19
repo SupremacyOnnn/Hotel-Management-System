@@ -1,7 +1,12 @@
 import React from "react";
 import { Carousel, Row, Col, Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const RoomCarousel = ({ carouselItems }) => {
+const RoomCarousel = ({ carouselItems, hotelId }) => {
+  const navigate = useNavigate();
+  function handelClick() {
+    navigate(`/${hotelId}/room`);
+  }
   return (
     <Carousel>
       {carouselItems.map((item, index) => (
@@ -31,7 +36,11 @@ const RoomCarousel = ({ carouselItems }) => {
                 </i>
               </Col>
               <Col sm={3}>
-                <Button variant="warning" className="mx-auto country-button">
+                <Button
+                  variant="warning"
+                  className="mx-auto country-button"
+                  onClick={handelClick}
+                >
                   Explore More
                 </Button>
               </Col>

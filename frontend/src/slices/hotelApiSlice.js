@@ -15,9 +15,15 @@ export const hotelApiSLice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
+    getHotelNameAndIdByCountry: builder.query({
+      query: (country) => ({
+        url: `${HOTEL_URL}/hotelsNameID/${country}`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
     getHotelByID: builder.query({
-      query: (id) => ({
-        url: `${HOTEL_URL}/hotel/${id}`,
+      query: (country) => ({
+        url: `${HOTEL_URL}/hotel/${country}`,
       }),
       keepUnusedDataFor: 5,
     }),
@@ -28,4 +34,5 @@ export const {
   useGetHotelsQuery,
   useGetHotelByCountryQuery,
   useGetHotelByIDQuery,
+  useGetHotelNameAndIdByCountryQuery,
 } = hotelApiSLice;

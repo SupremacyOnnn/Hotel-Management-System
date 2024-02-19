@@ -6,6 +6,7 @@ import hotelRoutes from "../backend/routes/expRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
 import countryRoutes from "./routes/countryRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
 import cookieParser from "cookie-parser";
 
 connectDB();
@@ -29,4 +30,5 @@ app.use("/api/hotel", hotelRoutes);
 app.use("/api/room", roomRoutes);
 app.use("/api/country", countryRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/booking", bookingRoutes);
 app.listen(port, () => console.log(`Server running at ${port}`));
