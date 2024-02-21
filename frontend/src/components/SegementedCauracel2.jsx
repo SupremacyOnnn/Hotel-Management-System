@@ -1,9 +1,13 @@
 import React from "react";
-import { Carousel, Row, Col, Button } from "react-bootstrap";
+import { Carousel, Row, Col } from "react-bootstrap";
 
 const SegementedCauracel2 = ({ carouselItems }) => {
   return (
-    <Carousel>
+    <Carousel
+      prevIcon={<span style={{ visibility: "hidden" }}>&#10094;</span>}
+      nextIcon={<span style={{ visibility: "hidden" }}>&#10095;</span>}
+      indicators={false}
+    >
       {carouselItems.map((item, index) => (
         <Carousel.Item
           pause="hover"

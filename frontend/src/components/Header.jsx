@@ -48,7 +48,7 @@ const Header = () => {
                 alt="The Hotel"
               />
               {"  "}
-              <span className="eb-garamond">The Hotel</span>
+              <span className="eb-garamond">The Villa</span>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

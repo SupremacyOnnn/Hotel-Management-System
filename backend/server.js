@@ -8,6 +8,7 @@ import countryRoutes from "./routes/countryRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import cookieParser from "cookie-parser";
+// import cors from "cors";
 
 connectDB();
 

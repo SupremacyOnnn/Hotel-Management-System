@@ -24,7 +24,7 @@
   line-height: 26px;
   text-transform: uppercase;
   box-shadow: 0 8px 6px -6px gray;
-  --webkit-box-shadow: 0 8px 6px -6px gray;
+  --webkit-box-shadow: 0 8px 6px -6px rgb(128, 128, 128);
   border-bottom: solid gray !important;
 }
 .card{
@@ -53,7 +53,9 @@
   width: 150px; /* Adjust the width as needed */
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: gray; 
+.carousel-image{
+  height: 90vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }

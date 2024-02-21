@@ -8,7 +8,11 @@ const RoomCarousel = ({ carouselItems, hotelId }) => {
     navigate(`/${hotelId}/room`);
   }
   return (
-    <Carousel>
+    <Carousel
+      // prevIcon={<span style={{ visibility: "hidden" }}>&#10094;</span>}
+      // nextIcon={<span style={{ visibility: "hidden" }}>&#10095;</span>}
+      indicators={false}
+    >
       {carouselItems.map((item, index) => (
         <Carousel.Item
           pause="hover"
@@ -35,7 +39,7 @@ const RoomCarousel = ({ carouselItems, hotelId }) => {
                   {item.about}
                 </i>
               </Col>
-              <Col sm={3}>
+              <Col sm={3} className="d-flex m-2">
                 <Button
                   variant="warning"
                   className="mx-auto country-button"

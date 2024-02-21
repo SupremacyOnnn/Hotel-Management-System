@@ -1,10 +1,54 @@
 import Booking from "../models/bookingModel.js";
+import moment from "moment";
 // import Room from "../models/roomModel.js";
 // Controller to create a new booking
 const createBooking = async (req, res) => {
-  const bookingData = req.body;
+  const bookingsData = req.body;
   try {
-    const newBooking = await Booking.create(bookingData);
+    const newBookings = [];
+    const {
+      hotelId,
+      roomId,
+      userId,
+      country,
+      city,
+      startDate,
+      endDate,
+      quantity,
+      totalPrice,
+    } = bookingsData;
+
+    // Parse startDate and endDate
+    const parsedStartDate = moment.utc(startDate, "DD-MM-YYYY").toDate();
+    const parsedEndDate = moment
+      .utc(endDate, "DD-MM-YYYY")
+      .subtract(1, "day")
+      .toDate();
+
+    const existingBookings = await Booking.find({
+      roomId,
+      hotelId,
+      startDate: { $lte: parsedEndDate },
+      endDate: { $gte: parsedStartDate },
+    });
+
+    if (existingBookings.length > 0) {
+      return res.status(400).json({ message: "Villa already booked" });
+    }
+
+    // Create the booking
+    const newBooking = await Booking.create({
+      hotelId,
+      roomId,
+      userId,
+      country,
+      city,
+      startDate: parsedStartDate,
+      endDate: parsedEndDate,
+      quantity,
+      totalPrice,
+    });
+
     res.status(201).json(newBooking);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -81,6 +125,27 @@ const getBookingsByRoomId = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+const getHighestQuantityRooms = async (req, res) => {
+  const { hotelId, startDate, endDate } = req.body;
+  // res.status(200).json({ hotelId, startDate, endDate });
+  try {
+    const parsedStartDate = moment.utc(startDate, "DD-MM-YYYY").toDate();
+    const parsedEndDate = moment
+      .utc(endDate, "DD-MM-YYYY")
+      .subtract(1, "day")
+      .toDate();
+    const existingBookings = await Booking.find({
+      hotelId,
+      startDate: { $lte: parsedEndDate },
+      endDate: { $gte: parsedStartDate },
+    });
+    res.status(200).json(existingBookings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   createBooking,
   updateBooking,
@@ -89,4 +154,5 @@ export {
   getBookingById,
   getBookingsByHotelId,
   getBookingsByRoomId,
+  getHighestQuantityRooms,
 };

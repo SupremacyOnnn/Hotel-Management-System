@@ -40,72 +40,76 @@ const HotelScreen = () => {
 
   return (
     <>
-      <Carousel carouselItems={hotelData.mainPicture} />
-      <Row className="mb-4">
-        <Col sm={7}>
-          <ImageCarousel images={hotelData.aboutPicture} />
-        </Col>
-        <Col sm={5}>
-          <Container className="eb-garamond">
-            <h2>
-              <i>Welcome </i>to {hotelData.city}
-            </h2>
-            <p>{hotelData.about}</p>
-          </Container>
-        </Col>
-      </Row>
-      <div>
-        <Container className="d-flex justify-content-center ">
-          <div className="border border-warning rounded p-5 eb-garamond">
-            <Row>
-              <Col className="p-2">Address : {hotelData.address}</Col>
-            </Row>
-            <Row>
-              <Col className="p-2">
-                <b>Email :</b> {hotelData.email}
-              </Col>
-              <Col className="p-2">
-                <b>Phone :</b> {hotelData.phone}
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </div>
-      <div className="m-2">
-        <h1 className="eb-garamond">
-          <i>May we show you to your room?</i>
-        </h1>
-        <p>{hotelData.inspiration}</p>
-      </div>
-      <div>
-        <RoomCarousel carouselItems={roomData} hotelId={hotelId} />
-      </div>
-      {hotelData.dine ? (
-        <div className="m-2">
-          <h1 className="eb-garamond">
-            <i>Where would you like to dine?</i>
-          </h1>
-          <p>{hotelData.dineAbout}</p>
+      {roomData && (
+        <>
+          <Carousel carouselItems={hotelData.mainPicture} />
+          <Row className="mb-4">
+            <Col sm={7}>
+              <ImageCarousel images={hotelData.aboutPicture} />
+            </Col>
+            <Col sm={5} className="m-2">
+              <Container className="eb-garamond">
+                <h2>
+                  <i>Welcome </i>to {hotelData.city}
+                </h2>
+                <p>{hotelData.about}</p>
+              </Container>
+            </Col>
+          </Row>
           <div>
-            <SegementedCauracel2
-              carouselItems={hotelData.dinePlace}
-            ></SegementedCauracel2>
+            <Container className="d-flex justify-content-center ">
+              <div className="border border-warning rounded p-5 eb-garamond">
+                <Row>
+                  <Col className="p-2">Address : {hotelData.address}</Col>
+                </Row>
+                <Row>
+                  <Col className="p-2">
+                    <b>Email :</b> {hotelData.email}
+                  </Col>
+                  <Col className="p-2">
+                    <b>Phone :</b> {hotelData.phone}
+                  </Col>
+                </Row>
+              </div>
+            </Container>
           </div>
-        </div>
-      ) : null}
-      {hotelData.amenities ? (
-        <div className="m-2">
-          <h1 className="eb-garamond">
-            <i>Relax. Replenish. Rejuvenate.</i>
-          </h1>
-          <p>{hotelData.amenitiesAbout}</p>
+          <div className="m-2">
+            <h1 className="eb-garamond">
+              <i>May we show you to your villa?</i>
+            </h1>
+            <p>{hotelData.inspiration}</p>
+          </div>
           <div>
-            <SegementedCauracel2
-              carouselItems={hotelData.amenitiesList}
-            ></SegementedCauracel2>
+            <RoomCarousel carouselItems={roomData} hotelId={hotelId} />
           </div>
-        </div>
-      ) : null}
+          {hotelData.dine ? (
+            <div className="m-2">
+              <h1 className="eb-garamond">
+                <i>Where would you like to dine?</i>
+              </h1>
+              <p>{hotelData.dineAbout}</p>
+              <div>
+                <SegementedCauracel2
+                  carouselItems={hotelData.dinePlace}
+                ></SegementedCauracel2>
+              </div>
+            </div>
+          ) : null}
+          {hotelData.amenities ? (
+            <div className="m-2">
+              <h1 className="eb-garamond">
+                <i>Relax. Replenish. Rejuvenate.</i>
+              </h1>
+              <p>{hotelData.amenitiesAbout}</p>
+              <div>
+                <SegementedCauracel2
+                  carouselItems={hotelData.amenitiesList}
+                ></SegementedCauracel2>
+              </div>
+            </div>
+          ) : null}
+        </>
+      )}
 
       <Button onClick={handleClick}>Click me</Button>
     </>

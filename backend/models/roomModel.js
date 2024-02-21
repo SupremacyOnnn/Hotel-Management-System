@@ -12,6 +12,10 @@ const hotelRoomsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  city: {
+    type: String,
+    required: true,
+  },
   about: {
     type: String,
     required: true,
@@ -33,7 +37,6 @@ const hotelRoomsSchema = new mongoose.Schema({
   booking: [String],
 });
 
-// Create the model
 const Hotelroom = mongoose.model("Hotelroom", hotelRoomsSchema);
 
 export default Hotelroom;

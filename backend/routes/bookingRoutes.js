@@ -7,12 +7,14 @@ import {
   getBookingById,
   getBookingsByHotelId,
   getBookingsByRoomId,
+  getHighestQuantityRooms,
 } from "../controllers/bookingController.js";
 
 const router = express.Router();
 
 // Route to create a new booking
 router.route("/").post(createBooking).get(getAllBookings);
+router.route("/bookingInRange").post(getHighestQuantityRooms);
 
 // Route to update an existing booking by ID
 router

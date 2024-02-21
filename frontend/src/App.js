@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./components/Header";
-import { Container } from "react-bootstrap";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -11,9 +10,7 @@ export default function App() {
     <div>
       <Header />
       <main>
-        <Container>
-          <Outlet />
-        </Container>
+        <Outlet />
       </main>
       <Footer />
       <ToastContainer />

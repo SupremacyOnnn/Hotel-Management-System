@@ -15,8 +15,8 @@ const HomeScreen = () => {
   } = useGetCountriesQuery();
   const CarouselItems = [
     {
-      picture: "/image/c2.jpg",
-      info: "Good Afternoon. Welcome to The Hotel.",
+      picture: "/image/c4.jpg",
+      info: "Good Afternoon. Welcome to The Villa.",
       about: "Ranked Number 1 Hotel Brand in the World",
     },
     {
@@ -25,9 +25,9 @@ const HomeScreen = () => {
       about: "Travel + Leisure World’s Best Awards, 2022",
     },
     {
-      picture: "/image/c3.jpg",
-      info: "Featured in The World’s 50 Best Hotels",
-      about: "The World’s 50 Best Hotels Academy, 2023.",
+      picture: "/image/c5.jpg",
+      info: "Featured in The World’s 50 Best Villa",
+      about: "The World’s 50 Best Villa Academy, 2023.",
     },
     // Add more carousel items as needed
   ];
@@ -68,41 +68,46 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Caurasel carouselItems={CarouselItems} />
-      <CheckAvailability country={buttonLabels} />
-      <Container className="mt-2 eb-garamond">
-        <h2>
-          <i>What stirs the traveller in you</i>?
-        </h2>
-        <p className="m-0">
-          An idyllic beach on a faraway island? Shopping for rare treasures in
-          an ancient city?
-        </p>
-        <p className="m-0">
-          A picnic in the Himalayas? A leisurely cruise on the Nile or a jungle
-          adventure?
-        </p>
-      </Container>
-      <div className="d-flex flex-wrap m-3">
-        {buttonLabels.map((label, index) => (
-          <Button
-            key={index}
-            variant="warning"
-            value={label.country}
-            onClick={(e) => setSelectedButton(e.target.value)}
-            disabled={selectedButton === index}
-            sm={12}
-            md={6}
-            lg={4}
-            xl={3}
-            className="mx-auto my-2 country-button"
-          >
-            {label.country}
-          </Button>
-        ))}
-      </div>
-      <SegementedCauracel carouselItems={hotelsDetails} />
-      <Button onClick={handelClick}>Click</Button>
+      {buttonLabels && hotels && (
+        <>
+          <Caurasel carouselItems={CarouselItems} />
+          <CheckAvailability country={buttonLabels} />
+          <Container className="mt-2 eb-garamond">
+            <h2>
+              <i>What stirs the traveller in you</i>?
+            </h2>
+            <p className="m-0">
+              An idyllic beach on a faraway island? Shopping for rare treasures
+              in an ancient city?
+            </p>
+            <p className="m-0">
+              A picnic in the Himalayas? A leisurely cruise on the Nile or a
+              jungle adventure?
+            </p>
+          </Container>
+          <div className="d-flex flex-wrap m-3">
+            {buttonLabels.map((label, index) => (
+              <Button
+                key={index}
+                variant="warning"
+                value={label.country}
+                onClick={(e) => setSelectedButton(e.target.value)}
+                disabled={selectedButton === index}
+                block="true"
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                className="mx-auto my-2 country-button"
+              >
+                {label.country}
+              </Button>
+            ))}
+          </div>
+          <SegementedCauracel carouselItems={hotelsDetails} />
+          <Button onClick={handelClick}>Click</Button>
+        </>
+      )}
     </>
   );
 };
