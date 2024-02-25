@@ -47,7 +47,7 @@ const HotelScreen = () => {
             <Col sm={7}>
               <ImageCarousel images={hotelData.aboutPicture} />
             </Col>
-            <Col sm={5} className="m-2">
+            <Col sm={5}>
               <Container className="eb-garamond">
                 <h2>
                   <i>Welcome </i>to {hotelData.city}

@@ -7,6 +7,9 @@ const SegementedCauracel = ({ carouselItems }) => {
   const handelExploreClick = (e) => {
     navigate(`/${e}`);
   };
+  const handelBookingClick = (e) => {
+    navigate(`/${e}/room`);
+  };
   return (
     <Carousel
       prevIcon={<span style={{ visibility: "hidden" }}>&#10094;</span>}
@@ -36,7 +39,9 @@ const SegementedCauracel = ({ carouselItems }) => {
                   <Button
                     variant="warning"
                     block
-                    className="mt-3 country-button"
+                    className="mt-3 country-button w-100"
+                    value={item.id}
+                    onClick={(e) => handelBookingClick(e.target.value)}
                   >
                     Quick Book
                   </Button>
@@ -45,7 +50,7 @@ const SegementedCauracel = ({ carouselItems }) => {
                   <Button
                     variant="light"
                     block
-                    className="mt-3 country-button"
+                    className="mt-3 country-button w-100"
                     value={item.id}
                     onClick={(e) => handelExploreClick(e.target.value)}
                   >

@@ -21,6 +21,16 @@ const getRoomsByHotelId = async (req, res) => {
   }
 };
 
+const getRoomsByRoomId = async (req, res) => {
+  const { roomId } = req.params;
+  try {
+    const rooms = await HotelRoom.findOne({ _id: roomId });
+    res.json(rooms);
+  } catch (err) {
+    console.error("Error fetching Rooms:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 const createRoom = async (req, res) => {
   try {
     let roomData = req.body;
@@ -42,4 +52,4 @@ const createRoom = async (req, res) => {
   }
 };
 
-export { getAllRooms, getRoomsByHotelId, createRoom };
+export { getAllRooms, getRoomsByHotelId, createRoom, getRoomsByRoomId };

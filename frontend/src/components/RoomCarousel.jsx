@@ -39,10 +39,10 @@ const RoomCarousel = ({ carouselItems, hotelId }) => {
                   {item.about}
                 </i>
               </Col>
-              <Col sm={3} className="d-flex m-2">
+              <Col sm={3} className="d-flex ">
                 <Button
                   variant="warning"
-                  className="mx-auto country-button"
+                  className="mx-auto country-button w-100 mt-2"
                   onClick={handelClick}
                 >
                   Explore More

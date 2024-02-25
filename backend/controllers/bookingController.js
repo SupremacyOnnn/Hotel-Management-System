@@ -55,6 +55,63 @@ const createBooking = async (req, res) => {
   }
 };
 
+const createMultipleBooking = async (req, res) => {
+  const bookingsData = req.body;
+  try {
+    const newBookings = [];
+    for (const bookingData of bookingsData) {
+      const {
+        hotelId,
+        roomId,
+        userId,
+        country,
+        city,
+        startDate,
+        endDate,
+        quantity,
+        totalPrice,
+      } = bookingData;
+
+      // Parse startDate and endDate
+      const parsedStartDate = moment.utc(startDate, "DD-MM-YYYY").toDate();
+      const parsedEndDate = moment
+        .utc(endDate, "DD-MM-YYYY")
+        .subtract(1, "day")
+        .toDate();
+
+      const existingBookings = await Booking.find({
+        roomId,
+        hotelId,
+        startDate: { $lte: parsedEndDate },
+        endDate: { $gte: parsedStartDate },
+      });
+
+      if (existingBookings.length > 0) {
+        return res.status(400).json({ message: "Villa already booked" });
+      }
+
+      // Create the booking
+      const newBooking = await Booking.create({
+        hotelId,
+        roomId,
+        userId,
+        country,
+        city,
+        startDate: parsedStartDate,
+        endDate: parsedEndDate,
+        quantity,
+        totalPrice,
+      });
+
+      newBookings.push(newBooking);
+    }
+
+    res.status(201).json(newBookings);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 // Controller to update an existing booking by ID
 const updateBooking = async (req, res) => {
   const { id } = req.params;
@@ -146,8 +203,29 @@ const getHighestQuantityRooms = async (req, res) => {
   }
 };
 
+const getRoomsAvialabity = async (req, res) => {
+  const { roomId, startDate, endDate } = req.body;
+  // res.status(200).json({ hotelId, startDate, endDate });
+  try {
+    const parsedStartDate = moment.utc(startDate, "DD-MM-YYYY").toDate();
+    const parsedEndDate = moment
+      .utc(endDate, "DD-MM-YYYY")
+      .subtract(1, "day")
+      .toDate();
+    const existingBookings = await Booking.find({
+      roomId,
+      startDate: { $lte: parsedEndDate },
+      endDate: { $gte: parsedStartDate },
+    });
+    res.status(200).json(existingBookings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   createBooking,
+  createMultipleBooking,
   updateBooking,
   deleteBookingById,
   getAllBookings,
@@ -155,4 +233,5 @@ export {
   getBookingsByHotelId,
   getBookingsByRoomId,
   getHighestQuantityRooms,
+  getRoomsAvialabity,
 };

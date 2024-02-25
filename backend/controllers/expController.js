@@ -94,7 +94,7 @@ const getHotelsNameAndIdByCountry = async (req, res) => {
 
   try {
     // Find hotels in the specified country
-    const hotels = await Exp.find({ country: countryName }, "name _id");
+    const hotels = await Exp.find({ country: countryName }, "name _id ");
 
     // Extract hotel names and IDs
     const hotelData = hotels.map((hotel) => ({

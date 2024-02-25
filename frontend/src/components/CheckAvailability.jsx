@@ -39,7 +39,7 @@ const CheckAvailability = ({ country }) => {
             <Col>
               <Form.Select
                 style={{ width: "310px" }}
-                className="me-auto ms-auto my-2"
+                className="mx-auto my-2 mx-2"
                 sm={12}
                 md={6}
                 lg={4}

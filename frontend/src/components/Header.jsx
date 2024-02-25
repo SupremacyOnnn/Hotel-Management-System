@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import logo from "../assets/logo.png";
+import images from "../assets/images.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { logout } from "../slices/authSlice";
 import { useLogoutMutation } from "../slices/userApiSlice";
+import { removeRoom } from "../slices/roomSlice";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -21,23 +22,24 @@ const Header = () => {
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
+      dispatch(removeRoom());
       dispatch(logout());
+      navigate("/");
       // NOTE: here we need to reset cart state for when a user logs out so the next
       // user doesn't inherit the previous users cart and shipping
       // dispatch(resetCart());
-      navigate("/login");
     } catch (err) {
       console.error(err);
     }
   };
   return (
     <>
-      <Navbar bg="white" expand="lg">
+      <Navbar bg="white" expand="lg" sticky="top">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
               <img
-                src={logo}
+                src={images}
                 className="header-logo"
                 style={{
                   maxWidth: "150px",
@@ -48,7 +50,7 @@ const Header = () => {
                 alt="The Hotel"
               />
               {"  "}
-              <span className="eb-garamond">The Villa</span>
+              {/* <span className="eb-garamond">The Villa</span> */}
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

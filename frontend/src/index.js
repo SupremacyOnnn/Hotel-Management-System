@@ -17,7 +17,10 @@ import Try from "./screens/Try";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import RoomScreen from "./screens/RoomScreen";
-import Checkout from "./screens/Checkout";
+import CheckoutScreen from "./screens/CheckoutScreen";
+import IndividualRoomScreen from "./screens/IndividualRoomScreen";
+import PrivateRoute from "./components/PrivateRoute";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,10 +28,22 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />}></Route>
       <Route path="/:id" element={<HotelScreen />}></Route>
       <Route path="/:id/room" element={<RoomScreen />}></Route>
-      <Route path="/:id/room/:roomid/checkout" element={<Checkout />}></Route>
+      <Route
+        path="/:id/room/:roomId/:fromDate/:toDate"
+        element={<IndividualRoomScreen />}
+      ></Route>
+
       <Route path="/login" element={<LoginScreen />}></Route>
       <Route path="/signup" element={<RegisterScreen />}></Route>
       <Route path="/try" element={<Try />}></Route>
+
+      <Route path="" element={<PrivateRoute />}>
+        <Route
+          path="/:id/room/:roomid/checkout"
+          element={<CheckoutScreen />}
+        ></Route>
+        <Route path="/profile" element={<ProfileScreen />}></Route>
+      </Route>
     </Route>
   )
 );

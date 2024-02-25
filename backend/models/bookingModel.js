@@ -34,11 +34,15 @@ const bookingSchema = new mongoose.Schema({
   },
   quantity: {
     type: Number,
-    required: true,
+    default: 1,
   },
   totalPrice: {
     type: Number,
     required: true,
+  },
+  checkedIn: {
+    type: Boolean,
+    default: false,
   },
   // You can add more fields as needed
 });

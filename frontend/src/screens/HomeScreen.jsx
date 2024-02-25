@@ -60,6 +60,7 @@ const HomeScreen = () => {
     : [];
 
   const handelClick = () => {
+    console.log(buttonLabels);
     // console.log(uniqueHotelsByCountry);
     // console.log(selectedButton);
     // console.log(hotels);
@@ -71,6 +72,12 @@ const HomeScreen = () => {
       {buttonLabels && hotels && (
         <>
           <Caurasel carouselItems={CarouselItems} />
+          <Container className="mx-auto my-4 eb-garamond">
+            <h2>
+              We have group of premium villas in the most premium destination
+              with premium service and aminities like fine dining, gym and spa.
+            </h2>
+          </Container>
           <CheckAvailability country={buttonLabels} />
           <Container className="mt-2 eb-garamond">
             <h2>

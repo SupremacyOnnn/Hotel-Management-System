@@ -20,10 +20,20 @@ export const countryApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Booking"],
     }),
+    getRoomsBookingByRoomID: builder.query({
+      query: (findBooking) => ({
+        url: `${BOOKING_URL}/roomBookingInRange`,
+        body: findBooking,
+        method: "POST",
+      }),
+      keepUnusedDataFor: 5,
+      providesTags: ["BookingS"],
+    }),
   }),
 });
 
 export const {
   useGetAllVillaBookingsInDateRangeQuery,
   useCreateBookingMutation,
+  useGetRoomsBookingByRoomIDQuery,
 } = countryApiSlice;

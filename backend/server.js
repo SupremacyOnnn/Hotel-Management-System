@@ -16,6 +16,9 @@ const app = express();
 const port = process.env.PORT;
 
 // app.use(cors({ origin: "http://localhost:3000" }));
+// app.get("/api/config/paypal", (req, res) =>
+//   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
+// );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
