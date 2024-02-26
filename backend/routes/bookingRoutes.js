@@ -12,6 +12,8 @@ import {
   getHighestQuantityRooms,
   getRoomsAvialabity,
   getBookingsByUserId,
+  getBookingsByHotelIdInDateRange,
+  getPrevBookingsByHotelId,
   // getBookingsBeforeCurrentDate,
   // getBookingsOnOrAfterCurrentDate,
 } from "../controllers/bookingController.js";
@@ -24,6 +26,9 @@ router.route("/multipleBooking").post(protect, createMultipleBooking);
 router.route("/bookingInRange").post(getHighestQuantityRooms);
 router.route("/roomBookingInRange").post(getRoomsAvialabity);
 router.route("/user/:userId").get(getBookingsByUserId);
+router.route("/hotel/inRange").post(getBookingsByHotelIdInDateRange);
+router.route("/hotel/prev").post(getPrevBookingsByHotelId);
+// router.route("/hotel/inRange").post(getBookingsByHotelIdInRange);
 // router.route("/user/:userId/after").get(getBookingsOnOrAfterCurrentDate);
 // router.route("/user/:userId/before").get(getBookingsBeforeCurrentDate);
 

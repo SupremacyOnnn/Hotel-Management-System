@@ -1,11 +1,14 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useGetCancelBookingByIdQuery } from "../slices/cancelSlice";
 import Loader from "../components/Loader";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 const CancelledBookingScreen = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  const isAdmin = userInfo.isAdmin;
   const { bookingId } = useParams();
   const {
     data: bookingData,
@@ -34,6 +37,18 @@ const CancelledBookingScreen = () => {
               Refund Status :{" "}
               {bookingData.isRefunded ? "Refunded" : "Waiting for verification"}
             </h5>
+            {isAdmin && (
+              <>
+                <hr />
+                <Button
+                  variant={bookingData.isRefunded ? "success" : "danger"}
+                  disabled={bookingData.isRefunded}
+                  className="w-100"
+                >
+                  {bookingData.isRefunded ? "Refunded" : "Confirm Refund"}
+                </Button>
+              </>
+            )}
           </div>
         </Container>
       )}

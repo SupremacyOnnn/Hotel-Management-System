@@ -35,6 +35,7 @@ const CheckoutScreen = () => {
   const placeOrderHandler = async () => {
     try {
       await createOrder({
+        name:userInfo.name,
         picture: room.picture,
         hotelId: room.hotelRef,
         roomId: room._id,

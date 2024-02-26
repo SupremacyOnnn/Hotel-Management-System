@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const cancelSchema = new mongoose.Schema({
+  name:{
+    type:String,
+  },
   picture: {
     type: String,
     default: "",

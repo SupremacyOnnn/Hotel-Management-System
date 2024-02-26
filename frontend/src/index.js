@@ -24,6 +24,8 @@ import ProfileScreen from "./screens/ProfileScreen";
 import UserBookingScreen from "./screens/UserBookingScreen";
 import OrderScreen from "./screens/OrderScreen";
 import CancelledBookingScreen from "./screens/CancelledBookingScreen";
+import VillaBookingScreen from "./screens/Admin/VillaBookingScreen";
+import AdminRoute from "./components/AdminRoute";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,6 +54,9 @@ const router = createBrowserRouter(
           path="/cancel/:bookingId"
           element={<CancelledBookingScreen />}
         ></Route>
+      </Route>
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/villaBooking" element={<VillaBookingScreen />} />
       </Route>
     </Route>
   )

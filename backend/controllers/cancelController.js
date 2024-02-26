@@ -6,6 +6,7 @@ const createCancelledBooking = async (req, res) => {
   try {
     const newBookings = [];
     const {
+      name,
       picture,
       bookingId,
       hotelId,
@@ -24,6 +25,7 @@ const createCancelledBooking = async (req, res) => {
     const parsedStartDate = moment.utc(startDate, "DD-MM-YYYY").toDate();
     const parsedEndDate = moment.utc(endDate, "DD-MM-YYYY").toDate();
     const newBooking = await Cancel.create({
+      name,
       picture,
       bookingId,
       hotelId,
@@ -74,7 +76,7 @@ const getCancelBookingById = async (req, res) => {
 const getCancelBookingsByHotelId = async (req, res) => {
   const { hotelId } = req.params;
   try {
-    const bookings = await Cancel.find({ hotelId });
+    const bookings = await Cancel.find({ hotelId }).sort({ startDate: 1 });
     res.status(200).json(bookings);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });

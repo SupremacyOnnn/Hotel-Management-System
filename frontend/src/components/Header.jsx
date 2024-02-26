@@ -64,9 +64,11 @@ const Header = () => {
                   {userInfo.isAdmin ? (
                     <>
                       <NavDropdown title={"Business"} id="admin">
-                        <Nav.Link>
-                          <FaAddressBook /> Villa Booking
-                        </Nav.Link>
+                        <LinkContainer to="/admin/villaBooking">
+                          <Nav.Link>
+                            <FaAddressBook /> Villa Booking
+                          </Nav.Link>
+                        </LinkContainer>
                         <Nav.Link>
                           <FaCashRegister /> Refund
                         </Nav.Link>

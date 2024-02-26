@@ -25,7 +25,7 @@ const OrderScreen = () => {
   } = useGetRoomsBookingByIDQuery(bookingId);
   useEffect(() => {
     if (bookingData && bookingData.endDate) {
-      const endDate = moment(bookingData.endDate);
+      const endDate = moment(bookingData.endDate).add(1, "day");
       const currentDate = moment();
       setIsHistorical(currentDate.isAfter(endDate));
     }
@@ -48,6 +48,7 @@ const OrderScreen = () => {
   const placeOrderHandler = async () => {
     try {
       await createCancelBookingMutaion({
+        name: bookingData.name,
         picture: bookingData.picture,
         bookingId: bookingData._id,
         hotelId: bookingData.hotelId,
