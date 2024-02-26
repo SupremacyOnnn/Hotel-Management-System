@@ -6,6 +6,7 @@ const createCancelledBooking = async (req, res) => {
   try {
     const newBookings = [];
     const {
+      picture,
       bookingId,
       hotelId,
       roomId,
@@ -16,12 +17,14 @@ const createCancelledBooking = async (req, res) => {
       startDate,
       endDate,
       quantity,
+      price,
       totalPrice,
       isCancelled,
     } = bookingsData;
     const parsedStartDate = moment.utc(startDate, "DD-MM-YYYY").toDate();
     const parsedEndDate = moment.utc(endDate, "DD-MM-YYYY").toDate();
     const newBooking = await Cancel.create({
+      picture,
       bookingId,
       hotelId,
       roomId,
@@ -32,6 +35,7 @@ const createCancelledBooking = async (req, res) => {
       startDate: parsedStartDate,
       endDate: parsedEndDate,
       quantity,
+      price,
       totalPrice,
       isCancelled,
     });

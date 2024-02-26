@@ -27,13 +27,15 @@ const CheckoutScreen = () => {
   const parsedStartDate = dayjs(room.startDate, "DD-MM-YYYY");
   const parsedEndDate = dayjs(room.endDate, "DD-MM-YYYY");
   const numberOfDays = parsedEndDate.diff(parsedStartDate, "day");
-  const totalPrice = room.price + (room.price * numberOfDays * 10) / 100;
+  const totalPrice =
+    room.price * numberOfDays + (room.price * numberOfDays * 10) / 100;
   if (!room || !room.startDate || !room.endDate || !room.price) {
     return <div>Loading...</div>;
   }
   const placeOrderHandler = async () => {
     try {
       await createOrder({
+        picture: room.picture,
         hotelId: room.hotelRef,
         roomId: room._id,
         userId: userInfo._id,
@@ -43,6 +45,7 @@ const CheckoutScreen = () => {
         startDate: room.startDate,
         endDate: room.endDate,
         totalPrice,
+        price: room.price,
         isPaid: true,
       }).unwrap();
       toast.success("Order Created");

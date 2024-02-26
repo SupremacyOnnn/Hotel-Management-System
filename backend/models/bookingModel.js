@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema({
+  picture: {
+    type: String,
+    default: "",
+  },
   hotelId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hot",
@@ -39,6 +43,10 @@ const bookingSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     default: 1,
+  },
+  price: {
+    type: Number,
+    required: true,
   },
   totalPrice: {
     type: Number,

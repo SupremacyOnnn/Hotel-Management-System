@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const cancelSchema = new mongoose.Schema({
+  picture: {
+    type: String,
+    default: "",
+  },
   bookingId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Booking",
@@ -44,6 +48,10 @@ const cancelSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     default: 1,
+  },
+  price: {
+    type: Number,
+    required: true,
   },
   totalPrice: {
     type: Number,

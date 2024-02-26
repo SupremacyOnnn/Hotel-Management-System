@@ -11,7 +11,6 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetRoomsBookingByIDQuery } from "../slices/bookingApiSlice";
 import { toast } from "react-toastify";
-import { useGetRoomsByRoomIDQuery } from "../slices/roomApiSlice";
 import moment from "moment";
 import { useCreateCancelBookingMutation } from "../slices/cancelSlice";
 
@@ -24,12 +23,6 @@ const OrderScreen = () => {
     isLoading: isBookingLoading,
     isError: isBookingError,
   } = useGetRoomsBookingByIDQuery(bookingId);
-  const roomId = bookingData?.roomId;
-  const {
-    data: room,
-    isLoading: isRoomLoading,
-    isError: isRoomError,
-  } = useGetRoomsByRoomIDQuery(roomId);
   useEffect(() => {
     if (bookingData && bookingData.endDate) {
       const endDate = moment(bookingData.endDate);
@@ -47,23 +40,26 @@ const OrderScreen = () => {
       ? parsedEndDate.diff(parsedStartDate, "days")
       : 0;
   const totalPrice =
-    room && numberOfDays
-      ? room.price + (room.price * numberOfDays * 10) / 100
+    bookingData && numberOfDays
+      ? bookingData.price * numberOfDays +
+        (bookingData.price * numberOfDays * 10) / 100
       : 0;
 
   const placeOrderHandler = async () => {
     try {
       await createCancelBookingMutaion({
+        picture: bookingData.picture,
         bookingId: bookingData._id,
-        hotelId: room.hotelRef,
-        roomId: room._id,
+        hotelId: bookingData.hotelId,
+        roomId: bookingData.roomId,
         userId: bookingData.userId,
-        country: room.country,
-        roomName: room.roomName,
-        city: room.city,
+        country: bookingData.country,
+        roomName: bookingData.roomName,
+        city: bookingData.city,
         startDate: moment(bookingData.startDate).format("DD-MM-YYYY"),
         endDate: moment(bookingData.endDate).format("DD-MM-YYYY"),
-        totalPrice,
+        price: bookingData.price,
+        totalPrice: bookingData.totalPrice,
       }).unwrap();
       toast.success("Booking Cancelled");
       navigate(`/myBooking`);
@@ -74,34 +70,45 @@ const OrderScreen = () => {
   };
 
   const [createCancelBookingMutaion] = useCreateCancelBookingMutation();
-  if (
-    !bookingData ||
-    isBookingLoading ||
-    isBookingError ||
-    !room ||
-    isRoomLoading ||
-    isRoomError
-  ) {
+  if (!bookingData || isBookingLoading || isBookingError) {
     return <div>Loading .... </div>;
   }
 
   return (
     <>
-      {room && (
+      {bookingData && (
         <div>
           <Container className="my-3">
             <h2 className="eb-garamond">Booking Details : </h2>
             <Row className="my-3">
               <Col sm={12} lg={4}>
                 <div className="d-flex justify-content-center">
-                  <Link to={`${room.hotelref}/room/${room.roomId}`}>
-                    <Image className="my-2" src={room.picture} fluid />
+                  <Link
+                    to={`/${bookingData.hotelId}/room/${
+                      bookingData.roomId
+                    }/${moment(bookingData.startDate).format(
+                      "DD-MM-YYYY"
+                    )}/${moment(bookingData.endDate)
+                      .add(1, "day")
+                      .format("DD-MM-YYYY")}`}
+                  >
+                    <Image className="my-2" src={bookingData.picture} fluid />
                   </Link>
                 </div>
               </Col>
               <Col sm={12} lg={3} className="my-2 mx-2">
-                <Link to={`${room.hotelref}/room/${room.roomId}`}>
-                  <h5 className="eb-garamond">Villa Name : {room.roomName}</h5>
+                <Link
+                  to={`/${bookingData.hotelId}/room/${
+                    bookingData.roomId
+                  }/${moment(bookingData.startDate).format(
+                    "DD-MM-YYYY"
+                  )}/${moment(bookingData.endDate)
+                    .add(1, "day")
+                    .format("DD-MM-YYYY")}`}
+                >
+                  <h5 className="eb-garamond">
+                    Villa Name : {bookingData.roomName}
+                  </h5>
                 </Link>
                 <h5 className="eb-garamond">
                   From : {moment(bookingData.startDate).format("DD-MM-YYYY")} -
@@ -117,8 +124,8 @@ const OrderScreen = () => {
                 <h5>Booking Id: {bookingData._id}</h5>
                 <hr></hr>
                 <h5>
-                  {room.roomName} (Rs.{room.price}) * {numberOfDays} = Rs.
-                  {room.price * numberOfDays}
+                  {bookingData.roomName} * {numberOfDays} = Rs.
+                  {bookingData.totalPrice}
                 </h5>
               </Col>
               <Col sm={12} lg={4}>
@@ -130,7 +137,7 @@ const OrderScreen = () => {
                     <ListGroup.Item>
                       <Row>
                         <Col>Base Price</Col>
-                        <Col>Rs.{room.price}</Col>
+                        <Col>Rs.{bookingData.price}</Col>
                       </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -142,7 +149,9 @@ const OrderScreen = () => {
                     <ListGroup.Item>
                       <Row>
                         <Col>Tax</Col>
-                        <Col>Rs.{(room.price * 10) / 100}</Col>
+                        <Col>
+                          Rs.{(bookingData.price * 10 * numberOfDays) / 100}
+                        </Col>
                       </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>

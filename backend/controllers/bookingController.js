@@ -7,6 +7,7 @@ const createBooking = async (req, res) => {
   try {
     const newBookings = [];
     const {
+      picture,
       hotelId,
       roomId,
       userId,
@@ -17,6 +18,7 @@ const createBooking = async (req, res) => {
       endDate,
       quantity,
       totalPrice,
+      price,
       // isPaid,
     } = bookingsData;
 
@@ -40,6 +42,7 @@ const createBooking = async (req, res) => {
 
     // Create the booking
     const newBooking = await Booking.create({
+      picture,
       hotelId,
       roomId,
       userId,
@@ -50,6 +53,7 @@ const createBooking = async (req, res) => {
       endDate: parsedEndDate,
       quantity,
       totalPrice,
+      price,
       // isPaid,
     });
 
@@ -65,6 +69,7 @@ const createMultipleBooking = async (req, res) => {
     const newBookings = [];
     for (const bookingData of bookingsData) {
       const {
+        picture,
         hotelId,
         roomId,
         userId,
@@ -75,6 +80,7 @@ const createMultipleBooking = async (req, res) => {
         endDate,
         quantity,
         totalPrice,
+        price,
         // isPaid,
       } = bookingData;
 
@@ -98,6 +104,7 @@ const createMultipleBooking = async (req, res) => {
 
       // Create the booking
       const newBooking = await Booking.create({
+        picture,
         hotelId,
         roomId,
         userId,
@@ -108,6 +115,7 @@ const createMultipleBooking = async (req, res) => {
         endDate: parsedEndDate,
         quantity,
         totalPrice,
+        price,
         // isPaid,
       });
 
