@@ -7,6 +7,7 @@ import roomRoutes from "./routes/roomRoutes.js";
 import countryRoutes from "./routes/countryRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import cancelRoutes from "./routes/cancelRoutes.js";
 import cookieParser from "cookie-parser";
 // import cors from "cors";
 
@@ -35,4 +36,5 @@ app.use("/api/room", roomRoutes);
 app.use("/api/country", countryRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/booking", bookingRoutes);
+app.use("/api/cancel", cancelRoutes);
 app.listen(port, () => console.log(`Server running at ${port}`));

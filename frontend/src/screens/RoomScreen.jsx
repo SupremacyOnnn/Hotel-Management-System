@@ -15,10 +15,15 @@ const RoomScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    data: rooms,
+    data: unSortedRoom,
     isLoading,
     isError,
   } = useGetRoomsByHotelIDQuery(hotelId);
+
+  const rooms = unSortedRoom
+    ? [...unSortedRoom].sort((a, b) => a.price - b.price)
+    : [];
+
   const currentDate = dayjs().startOf("day");
   const tomorrow = dayjs().add(1, "day").startOf("day");
 

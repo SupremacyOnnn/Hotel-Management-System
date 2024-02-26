@@ -45,7 +45,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <Container>
+    <Container className="my-auto">
       <h1>Sign In</h1>
 
       <Form onSubmit={submitHandler}>

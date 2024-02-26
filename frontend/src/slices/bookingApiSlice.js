@@ -20,6 +20,13 @@ export const countryApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Booking"],
     }),
+    getRoomsBookingByID: builder.query({
+      query: (id) => ({
+        url: `${BOOKING_URL}/${id}`,
+      }),
+      keepUnusedDataFor: 5,
+      providesTags: ["Booking"],
+    }),
     getRoomsBookingByRoomID: builder.query({
       query: (findBooking) => ({
         url: `${BOOKING_URL}/roomBookingInRange`,
@@ -27,13 +34,38 @@ export const countryApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
       keepUnusedDataFor: 5,
-      providesTags: ["BookingS"],
+      providesTags: ["Booking"],
     }),
+    getRoomsBookingByUserID: builder.query({
+      query: (userId) => ({
+        url: `${BOOKING_URL}/user/${userId}`,
+      }),
+      keepUnusedDataFor: 5,
+      providesTags: ["Booking"],
+    }),
+    // getRoomsBookingByUserIDAfter: builder.query({
+    //   query: (userId) => ({
+    //     url: `${BOOKING_URL}/user/:userId/after`,
+    //   }),
+    //   keepUnusedDataFor: 5,
+    //   providesTags: ["BookingS"],
+    // }),
+    // getRoomsBookingByUserIDBefore: builder.query({
+    //   query: (userId) => ({
+    //     url: `${BOOKING_URL}/user/:userId/before`,
+    //   }),
+    //   keepUnusedDataFor: 5,
+    //   providesTags: ["BookingS"],
+    // }),
   }),
 });
 
 export const {
   useGetAllVillaBookingsInDateRangeQuery,
   useCreateBookingMutation,
+  useGetRoomsBookingByIDQuery,
   useGetRoomsBookingByRoomIDQuery,
+  // useGetRoomsBookingByUserIDAfterQuery,
+  // useGetRoomsBookingByUserIDBeforeQuery,
+  useGetRoomsBookingByUserIDQuery,
 } = countryApiSlice;

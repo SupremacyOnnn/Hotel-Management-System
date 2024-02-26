@@ -10,12 +10,14 @@ const createBooking = async (req, res) => {
       hotelId,
       roomId,
       userId,
+      roomName,
       country,
       city,
       startDate,
       endDate,
       quantity,
       totalPrice,
+      // isPaid,
     } = bookingsData;
 
     // Parse startDate and endDate
@@ -41,12 +43,14 @@ const createBooking = async (req, res) => {
       hotelId,
       roomId,
       userId,
+      roomName,
       country,
       city,
       startDate: parsedStartDate,
       endDate: parsedEndDate,
       quantity,
       totalPrice,
+      // isPaid,
     });
 
     res.status(201).json(newBooking);
@@ -64,12 +68,14 @@ const createMultipleBooking = async (req, res) => {
         hotelId,
         roomId,
         userId,
+        roomName,
         country,
         city,
         startDate,
         endDate,
         quantity,
         totalPrice,
+        // isPaid,
       } = bookingData;
 
       // Parse startDate and endDate
@@ -95,12 +101,14 @@ const createMultipleBooking = async (req, res) => {
         hotelId,
         roomId,
         userId,
+        roomName,
         country,
         city,
         startDate: parsedStartDate,
         endDate: parsedEndDate,
         quantity,
         totalPrice,
+        // isPaid,
       });
 
       newBookings.push(newBooking);
@@ -183,6 +191,15 @@ const getBookingsByRoomId = async (req, res) => {
   }
 };
 
+const getBookingsByUserId = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const bookings = await Booking.find({ userId });
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 const getHighestQuantityRooms = async (req, res) => {
   const { hotelId, startDate, endDate } = req.body;
   // res.status(200).json({ hotelId, startDate, endDate });
@@ -223,6 +240,36 @@ const getRoomsAvialabity = async (req, res) => {
   }
 };
 
+// const getBookingsBeforeCurrentDate = async (req, res) => {
+//   const { userId } = req.params;
+//   const currentDate = new Date();
+//   currentDate.setDate(currentDate.getDate() - 1);
+//   try {
+//     const bookings = await Booking.find({
+//       userId,
+//       endDate: { $lt: currentDate },
+//     }).sort({ startDate: 1 });
+//     res.status(200).json(bookings);
+//   } catch (error) {
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
+// const getBookingsOnOrAfterCurrentDate = async (req, res) => {
+//   const { userId } = req.params;
+//   const currentDate = new Date();
+//   currentDate.setDate(currentDate.getDate() - 1);
+//   try {
+//     const bookings = await Booking.find({
+//       userId,
+//       endDate: { $gte: currentDate },
+//     }).sort({ startDate: 1 });
+//     res.status(200).json(bookings);
+//   } catch (error) {
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+
 export {
   createBooking,
   createMultipleBooking,
@@ -234,4 +281,7 @@ export {
   getBookingsByRoomId,
   getHighestQuantityRooms,
   getRoomsAvialabity,
+  getBookingsByUserId,
+  // getBookingsBeforeCurrentDate,
+  // getBookingsOnOrAfterCurrentDate,
 };

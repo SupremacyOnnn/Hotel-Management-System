@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
-const bookingSchema = new mongoose.Schema({
+const cancelSchema = new mongoose.Schema({
+  bookingId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Booking",
+    required: true,
+  },
   hotelId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hot",
@@ -54,11 +59,20 @@ const bookingSchema = new mongoose.Schema({
   },
   isCancelled: {
     type: Boolean,
+    default: true,
+  },
+  isRefunded: {
+    type: Boolean,
     default: false,
   },
+  // isPaid: {
+  //   type: Boolean,
+  //   require: true,
+  //   default: false,
+  // },
   // You can add more fields as needed
 });
 
-const Booking = mongoose.model("Booking", bookingSchema);
+const Cancel = mongoose.model("Cancel", cancelSchema);
 
-export default Booking;
+export default Cancel;

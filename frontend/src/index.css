@@ -37,7 +37,10 @@
   border-bottom: solid gray !important;
 }
 .nav-link {
-  font-weight: 300 !important;
+  font-weight: 200 !important;
+}
+.nav-link:hover {
+  font-weight: bold !important; /* Change font weight on hover */
 }
 
 /* .active {
@@ -53,9 +56,21 @@
   width: 150px; /* Adjust the width as needed */
 }
 
+.pageHieght{
+  height:80vh;
+}
+
+.link{
+  /* color: black; */
+  text-decoration: none;
+}
 .carousel-image{
   height: 90vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.boxheight {
+  width:80vh;
 }

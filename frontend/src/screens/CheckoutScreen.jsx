@@ -27,7 +27,7 @@ const CheckoutScreen = () => {
   const parsedStartDate = dayjs(room.startDate, "DD-MM-YYYY");
   const parsedEndDate = dayjs(room.endDate, "DD-MM-YYYY");
   const numberOfDays = parsedEndDate.diff(parsedStartDate, "day");
-  const totalPrice = room.price + (room.price * 10) / 100;
+  const totalPrice = room.price + (room.price * numberOfDays * 10) / 100;
   if (!room || !room.startDate || !room.endDate || !room.price) {
     return <div>Loading...</div>;
   }
@@ -38,10 +38,12 @@ const CheckoutScreen = () => {
         roomId: room._id,
         userId: userInfo._id,
         country: room.country,
+        roomName: room.roomName,
         city: room.city,
         startDate: room.startDate,
         endDate: room.endDate,
         totalPrice,
+        isPaid: true,
       }).unwrap();
       toast.success("Order Created");
       navigate(`/`);
@@ -50,6 +52,28 @@ const CheckoutScreen = () => {
       toast.error(err?.data?.message || err.error || "Cannot Place the order");
     }
   };
+
+  // const placeOrderLaterHandler = async () => {
+  //   try {
+  //     await createOrder({
+  //       hotelId: room.hotelRef,
+  //       roomId: room._id,
+  //       userId: userInfo._id,
+  //       country: room.country,
+  //       roomName: room.roomName,
+  //       city: room.city,
+  //       startDate: room.startDate,
+  //       endDate: room.endDate,
+  //       totalPrice,
+  //       isPaid: false,
+  //     }).unwrap();
+  //     toast.success("Order Created");
+  //     navigate(`/`);
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err?.data?.message || err.error || "Cannot Place the order");
+  //   }
+  // };
   return (
     <>
       {userInfo && room && (
@@ -101,7 +125,7 @@ const CheckoutScreen = () => {
                     <ListGroup.Item>
                       <Row>
                         <Col>Tax</Col>
-                        <Col>${(room.price * 10) / 100}</Col>
+                        <Col>${(room.price * numberOfDays * 10) / 100}</Col>
                       </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -120,6 +144,15 @@ const CheckoutScreen = () => {
                       >
                         Confirm Booking and PAY
                       </Button>
+                      {/* <Button
+                        type="button"
+                        variant="success"
+                        className="btn-block w-100"
+                        disabled={numberOfDays === 0}
+                        onClick={placeOrderLaterHandler}
+                      >
+                        Confirm Booking and PAY At Hotel
+                      </Button> */}
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>

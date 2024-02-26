@@ -6,4 +6,5 @@ export const ROOM_URL = "/api/room";
 export const USER_URL = "/api/user";
 export const COUNTRY_URL = "/api/country";
 export const BOOKING_URL = "/api/booking";
+export const CANCEL_URL = "/api/cancel";
 // export const PAYPAL_URL = "/api/config/paypal";

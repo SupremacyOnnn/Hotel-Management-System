@@ -6,6 +6,14 @@ const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ["Hotel", "Room", "User", "Country", "Booking", "Dates"],
+  tagTypes: [
+    "Hotel",
+    "Room",
+    "User",
+    "Country",
+    "Booking",
+    "Dates",
+    ["Cancel"],
+  ],
   endpoints: (builder) => ({}),
 });

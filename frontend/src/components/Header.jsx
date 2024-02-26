@@ -9,6 +9,9 @@ import {
   FaSignOutAlt,
   FaSignInAlt,
   FaRegistered,
+  FaBook,
+  FaAddressBook,
+  FaCashRegister,
 } from "react-icons/fa";
 import { logout } from "../slices/authSlice";
 import { useLogoutMutation } from "../slices/userApiSlice";
@@ -58,7 +61,29 @@ const Header = () => {
             <Nav className="ms-auto ">
               {userInfo ? (
                 <>
+                  {userInfo.isAdmin ? (
+                    <>
+                      <NavDropdown title={"Business"} id="admin">
+                        <Nav.Link>
+                          <FaAddressBook /> Villa Booking
+                        </Nav.Link>
+                        <Nav.Link>
+                          <FaCashRegister /> Refund
+                        </Nav.Link>
+                      </NavDropdown>
+                    </>
+                  ) : null}
+                  <LinkContainer to="/myBooking">
+                    <Nav.Link>
+                      <FaBook /> My Booking
+                    </Nav.Link>
+                  </LinkContainer>
                   <NavDropdown title={userInfo.name} id="username">
+                    {/* <LinkContainer to="/myBooking">
+                      <NavDropdown.Item>
+                        <FaBook /> My Bookings
+                      </NavDropdown.Item>
+                    </LinkContainer> */}
                     <LinkContainer to="/profile">
                       <NavDropdown.Item>
                         <FaUser /> Profile
@@ -70,7 +95,6 @@ const Header = () => {
                   </NavDropdown>
                 </>
               ) : (
-                // <Nav.Link href="#link"></Nav.Link>
                 <>
                   <LinkContainer to="/login">
                     <Nav.Link>

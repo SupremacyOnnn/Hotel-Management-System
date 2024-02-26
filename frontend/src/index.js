@@ -21,6 +21,9 @@ import CheckoutScreen from "./screens/CheckoutScreen";
 import IndividualRoomScreen from "./screens/IndividualRoomScreen";
 import PrivateRoute from "./components/PrivateRoute";
 import ProfileScreen from "./screens/ProfileScreen";
+import UserBookingScreen from "./screens/UserBookingScreen";
+import OrderScreen from "./screens/OrderScreen";
+import CancelledBookingScreen from "./screens/CancelledBookingScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,6 +46,12 @@ const router = createBrowserRouter(
           element={<CheckoutScreen />}
         ></Route>
         <Route path="/profile" element={<ProfileScreen />}></Route>
+        <Route path="/myBooking" element={<UserBookingScreen />}></Route>
+        <Route path="/order/:bookingId" element={<OrderScreen />}></Route>
+        <Route
+          path="/cancel/:bookingId"
+          element={<CancelledBookingScreen />}
+        ></Route>
       </Route>
     </Route>
   )

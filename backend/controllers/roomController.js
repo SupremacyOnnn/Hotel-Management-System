@@ -22,9 +22,12 @@ const getRoomsByHotelId = async (req, res) => {
 };
 
 const getRoomsByRoomId = async (req, res) => {
-  const { roomId } = req.params;
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "Room ID is required" });
+  }
   try {
-    const rooms = await HotelRoom.findOne({ _id: roomId });
+    const rooms = await HotelRoom.findById(id);
     res.json(rooms);
   } catch (err) {
     console.error("Error fetching Rooms:", err);
