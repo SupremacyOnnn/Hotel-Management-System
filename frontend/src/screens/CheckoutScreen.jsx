@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { useCreateBookingMutation } from "../slices/bookingApiSlice";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 const CheckoutScreen = () => {
   const navigate = useNavigate();
@@ -30,12 +31,16 @@ const CheckoutScreen = () => {
   const totalPrice =
     room.price * numberOfDays + (room.price * numberOfDays * 10) / 100;
   if (!room || !room.startDate || !room.endDate || !room.price) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loader></Loader>
+      </div>
+    );
   }
   const placeOrderHandler = async () => {
     try {
       await createOrder({
-        name:userInfo.name,
+        name: userInfo.name,
         picture: room.picture,
         hotelId: room.hotelRef,
         roomId: room._id,

@@ -106,7 +106,7 @@ const BookingSection = ({ bookings, isBooking, isHistory = false }) => {
                       </Button>
                     ) : (
                       <Button
-                        variant="danger"
+                        variant={isHistory ? "danger" : "warning"}
                         className="btn-sm"
                         disabled={isHistory}
                       >

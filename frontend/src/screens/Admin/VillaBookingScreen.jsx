@@ -70,7 +70,7 @@ const VillaBookingScreen = () => {
     return <div>No villas available.</div>;
   }
 
-  console.log(hotelId, sortedBookings, prevdata, cancelledData);
+  // console.log(hotelId, sortedBookings, prevdata, cancelledData);
   return (
     <>
       <Row className="d-flex flex-wrap">

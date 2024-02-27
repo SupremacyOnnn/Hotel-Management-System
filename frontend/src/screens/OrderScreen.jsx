@@ -13,9 +13,12 @@ import { useGetRoomsBookingByIDQuery } from "../slices/bookingApiSlice";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useCreateCancelBookingMutation } from "../slices/cancelSlice";
+import { useSelector } from "react-redux";
+import Loader from "../components/Loader";
 
 const OrderScreen = () => {
   const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
   const [isHistorical, setIsHistorical] = useState(false);
   const { bookingId } = useParams();
   const {
@@ -72,8 +75,14 @@ const OrderScreen = () => {
 
   const [createCancelBookingMutaion] = useCreateCancelBookingMutation();
   if (!bookingData || isBookingLoading || isBookingError) {
-    return <div>Loading .... </div>;
+    return (
+      <div>
+        <Loader />{" "}
+      </div>
+    );
   }
+
+  console.log(isHistorical);
 
   return (
     <>
@@ -182,6 +191,33 @@ const OrderScreen = () => {
                           {isHistorical ? "Didn't Show up" : "Cancel Booking"}
                         </Button>
                       )}
+                      {userInfo && userInfo.isAdmin ? (
+                        !isHistorical ? (
+                          bookingData.checkedIn ? (
+                            bookingData.checkedOut ? (
+                              <Button variant="warning" className="my-2 w-100">
+                                Confirm CheckOut
+                              </Button>
+                            ) : (
+                              <Button variant="warning" className="my-2 w-100">
+                                Booking Done
+                              </Button>
+                            )
+                          ) : (
+                            <Button variant="success" className="my-2 w-100">
+                              Confirm CheckIn
+                            </Button>
+                          )
+                        ) : (
+                          <Button
+                            disabled={true}
+                            variant="danger"
+                            className="my-2 w-100"
+                          >
+                            Cannot Refund
+                          </Button>
+                        )
+                      ) : null}
                     </ListGroup.Item>
                   </ListGroup>
                 </Card>
