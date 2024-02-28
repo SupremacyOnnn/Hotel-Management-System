@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import { useCreateBookingMutation } from "../slices/bookingApiSlice";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import moment from "moment";
 
 const CheckoutScreen = () => {
   const navigate = useNavigate();
@@ -92,13 +93,25 @@ const CheckoutScreen = () => {
             <Row className="my-3">
               <Col sm={12} lg={4}>
                 <div className="d-flex justify-content-center">
-                  <Link to={`${room.hotelref}/room/${room.roomId}`}>
+                  <Link
+                    to={`/${room.hotelRef}/room/${room._id}/${moment(
+                      parsedStartDate
+                    ).format("DD-MM-YYYY")}/${moment(parsedEndDate).format(
+                      "DD-MM-YYYY"
+                    )}`}
+                  >
                     <Image className="my-2" src={room.picture} fluid />
                   </Link>
                 </div>
               </Col>
               <Col sm={12} lg={3} className="my-2 mx-2">
-                <Link to={`${room.hotelref}/room/${room.roomId}`}>
+                <Link
+                  to={`/${room.hotelRef}/room/${room._id}/${moment(
+                    parsedStartDate
+                  ).format("DD-MM-YYYY")}/${moment(parsedEndDate).format(
+                    "DD-MM-YYYY"
+                  )}`}
+                >
                   <h5 className="eb-garamond">Villa Name : {room.roomName}</h5>
                 </Link>
                 <h5 className="eb-garamond">Booked by : {userInfo.name}</h5>

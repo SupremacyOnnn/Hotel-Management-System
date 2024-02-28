@@ -1,0 +1,4 @@
+MONGO_URI=mongodb+srv://<Your Name>:<Your Password></Your>@cluster0.hajp0j2.mongodb.net/try
+PORT=5000
+NODE_ENV=development
+JWT_SECRET=<Your Secete key>

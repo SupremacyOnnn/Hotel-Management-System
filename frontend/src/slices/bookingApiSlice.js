@@ -50,6 +50,7 @@ export const countryApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
       keepUnusedDataFor: 5,
+      providesTags: ["Booking"],
     }),
     getBookingByHotelIdPrev: builder.query({
       query: (findBooking) => ({
@@ -58,6 +59,16 @@ export const countryApiSlice = apiSlice.injectEndpoints({
         method: "POST",
       }),
       keepUnusedDataFor: 5,
+      providesTags: ["Booking"],
+    }),
+    updateBooking: builder.mutation({
+      query: ({ updates }, { id }) => ({
+        url: `${BOOKING_URL}/${id}`,
+        method: "PATCH",
+        body: updates,
+      }),
+      keepUnusedDataFor: 5,
+      invalidatesTags: ["Booking"],
     }),
     // getRoomsBookingByUserIDAfter: builder.query({
     //   query: (userId) => ({
@@ -86,4 +97,5 @@ export const {
   useGetRoomsBookingByUserIDQuery,
   useGetBookingByHotelIdInRangeQuery,
   useGetBookingByHotelIdPrevQuery,
+  useUpdateBookingMutation,
 } = countryApiSlice;

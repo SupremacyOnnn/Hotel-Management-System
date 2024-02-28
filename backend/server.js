@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
@@ -27,9 +28,9 @@ app.use(express.urlencoded({ extended: true }));
 // Cookie Parser
 app.use(cookieParser());
 
-app.get("/", (res, req) => {
-  res.send("API is running...");
-});
+// app.get("/", (res, req) => {
+//   res.send("API is running...");
+// });
 
 app.use("/api/hotel", hotelRoutes);
 app.use("/api/room", roomRoutes);
@@ -37,4 +38,21 @@ app.use("/api/country", countryRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/booking", bookingRoutes);
 app.use("/api/cancel", cancelRoutes);
+
+//Production related
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.resolve();
+  // app.use("/uploads", express.static("/var/data/uploads"));
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+  );
+} else {
+  const __dirname = path.resolve();
+  app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+  app.get("/", (req, res) => {
+    res.send("API is running....");
+  });
+}
 app.listen(port, () => console.log(`Server running at ${port}`));

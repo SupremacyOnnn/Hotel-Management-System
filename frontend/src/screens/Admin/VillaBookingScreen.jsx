@@ -19,7 +19,6 @@ const VillaBookingScreen = () => {
   const [fromDate, setFromDate] = useState(currentDate.format("DD-MM-YYYY"));
   const [toDate, setToDate] = useState(tomorrow.format("DD-MM-YYYY"));
   const [hotelId, setHotelId] = useState("Select a Villa");
-
   const {
     data: bookingData,
     isBookingLoading,

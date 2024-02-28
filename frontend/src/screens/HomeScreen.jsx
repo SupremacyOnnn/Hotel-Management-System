@@ -59,13 +59,13 @@ const HomeScreen = () => {
       }))
     : [];
 
-  const handelClick = () => {
-    console.log(buttonLabels);
-    // console.log(uniqueHotelsByCountry);
-    // console.log(selectedButton);
-    // console.log(hotels);
-    // console.log(hotelsWithPictures);
-  };
+  // const handelClick = () => {
+  //   console.log(buttonLabels);
+  //   // console.log(uniqueHotelsByCountry);
+  //   // console.log(selectedButton);
+  //   // console.log(hotels);
+  //   // console.log(hotelsWithPictures);
+  // };
 
   return (
     <>
@@ -112,7 +112,7 @@ const HomeScreen = () => {
             ))}
           </div>
           <SegementedCauracel carouselItems={hotelsDetails} />
-          <Button onClick={handelClick}>Click</Button>
+          {/*<Button onClick={handelClick}>Click</Button>*/}
         </>
       )}
     </>

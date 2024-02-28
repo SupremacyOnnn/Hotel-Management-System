@@ -9,12 +9,16 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useGetRoomsBookingByIDQuery } from "../slices/bookingApiSlice";
+import {
+  useGetRoomsBookingByIDQuery,
+  // useUpdateBookingMutation,
+} from "../slices/bookingApiSlice";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { useCreateCancelBookingMutation } from "../slices/cancelSlice";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import AdminControls from "../components/AdminControls";
 
 const OrderScreen = () => {
   const navigate = useNavigate();
@@ -73,6 +77,32 @@ const OrderScreen = () => {
     }
   };
 
+  // const CheckOutHandeler = async () => {
+  //   try {
+  //     await useUpdateBookingMutation(
+  //       { checkedOut: true },
+  //       { id: bookingData._id }
+  //     ).unwrap();
+  //     toast.success("Check Out done successfully.");
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err?.data?.message || err.error || "Cannot check out");
+  //   }
+  // };
+
+  // const CheckInHandeler = async () => {
+  //   try {
+  //     await useUpdateBookingMutation(
+  //       { checkedIn: true },
+  //       { id: bookingData._id }
+  //     ).unwrap();
+  //     toast.success("Check In done successfully.");
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error(err?.data?.message || err.error || "Cannot check In");
+  //   }
+  // };
+
   const [createCancelBookingMutaion] = useCreateCancelBookingMutation();
   if (!bookingData || isBookingLoading || isBookingError) {
     return (
@@ -82,7 +112,7 @@ const OrderScreen = () => {
     );
   }
 
-  console.log(isHistorical);
+  // console.log(isHistorical);
 
   return (
     <>
@@ -192,31 +222,10 @@ const OrderScreen = () => {
                         </Button>
                       )}
                       {userInfo && userInfo.isAdmin ? (
-                        !isHistorical ? (
-                          bookingData.checkedIn ? (
-                            bookingData.checkedOut ? (
-                              <Button variant="warning" className="my-2 w-100">
-                                Confirm CheckOut
-                              </Button>
-                            ) : (
-                              <Button variant="warning" className="my-2 w-100">
-                                Booking Done
-                              </Button>
-                            )
-                          ) : (
-                            <Button variant="success" className="my-2 w-100">
-                              Confirm CheckIn
-                            </Button>
-                          )
-                        ) : (
-                          <Button
-                            disabled={true}
-                            variant="danger"
-                            className="my-2 w-100"
-                          >
-                            Cannot Refund
-                          </Button>
-                        )
+                        <AdminControls
+                          isHistorical={isHistorical}
+                          bookingData={bookingData}
+                        />
                       ) : null}
                     </ListGroup.Item>
                   </ListGroup>

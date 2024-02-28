@@ -3,6 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { FaCheck, FaHourglass } from "react-icons/fa";
 
 const BookingSection = ({ bookings, isBooking, isHistory = false }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -82,10 +83,30 @@ const BookingSection = ({ bookings, isBooking, isHistory = false }) => {
                   <td>Rs. {order.totalPrice}</td>
                 </LinkContainer>
                 <LinkContainer to={url + `/${order._id}`}>
-                  <td>{!order.checkedIn ? "Pending" : "Checked In"}</td>
+                  <td>
+                    {!order.checkedIn ? (
+                      <div>
+                        <FaHourglass /> Pending
+                      </div>
+                    ) : (
+                      <div>
+                        <FaCheck /> Checked In
+                      </div>
+                    )}
+                  </td>
                 </LinkContainer>
                 <LinkContainer to={url + `/${order._id}`}>
-                  <td>{!order.checkedOut ? "Pending" : "Checked Out"}</td>
+                  <td>
+                    {!order.checkedOut ? (
+                      <div>
+                        <FaHourglass /> Pending
+                      </div>
+                    ) : (
+                      <div>
+                        <FaCheck /> Checked In
+                      </div>
+                    )}
+                  </td>
                 </LinkContainer>
                 <td>
                   <LinkContainer to={url + `/${order._id}`}>
@@ -100,9 +121,16 @@ const BookingSection = ({ bookings, isBooking, isHistory = false }) => {
                       <Button
                         variant="success"
                         className="btn-sm"
-                        disabled={true}
+                        disabled={
+                          order.checkedIn && order.checkedOut ? true : false
+                        }
                       >
-                        Completed
+                        {order.checkedIn && !order.checkedOut
+                          ? "Checked In"
+                          : null}
+                        {order.checkedIn && order.checkedOut
+                          ? "Completed"
+                          : null}
                       </Button>
                     ) : (
                       <Button

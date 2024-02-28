@@ -58,7 +58,6 @@ const getAllCancelBookings = async (req, res) => {
   }
 };
 
-// Controller to get a booking by ID
 const getCancelBookingById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -72,7 +71,6 @@ const getCancelBookingById = async (req, res) => {
   }
 };
 
-// Controller to get bookings by hotel ID
 const getCancelBookingsByHotelId = async (req, res) => {
   const { hotelId } = req.params;
   try {
@@ -83,7 +81,6 @@ const getCancelBookingsByHotelId = async (req, res) => {
   }
 };
 
-// Controller to get bookings by room ID
 const getCancelBookingsByRoomId = async (req, res) => {
   const { roomId } = req.params;
   try {
@@ -104,6 +101,20 @@ const getCancelBookingsByUserId = async (req, res) => {
   }
 };
 
+const updateCancelBooking = async (req, res) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+  try {
+    const updatedBooking = await Cancel.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+    res.status(200).json(updatedBooking);
+  } catch (error) {
+    console.error("Error :", error);
+    res.status(500).json({ error: "Error is processing" });
+  }
+};
+
 export {
   createCancelledBooking,
   getAllCancelBookings,
@@ -111,4 +122,5 @@ export {
   getCancelBookingsByHotelId,
   getCancelBookingsByRoomId,
   getCancelBookingsByUserId,
+  updateCancelBooking,
 };

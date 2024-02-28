@@ -1,10 +1,14 @@
 import React from "react";
 import { Button, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useGetCancelBookingByIdQuery } from "../slices/cancelSlice";
+import {
+  useGetCancelBookingByIdQuery,
+  useUpdateCancelBookingMutation,
+} from "../slices/cancelSlice";
 import Loader from "../components/Loader";
 import moment from "moment";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const CancelledBookingScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -15,6 +19,24 @@ const CancelledBookingScreen = () => {
     isLoading,
     isError,
   } = useGetCancelBookingByIdQuery(bookingId);
+
+  const [updateCancelBooking] = useUpdateCancelBookingMutation();
+
+  // console.log(bookingData);
+
+  const handelRefund = async () => {
+    try {
+      await updateCancelBooking({
+        id: bookingData._id,
+        updates: { isRefunded: true },
+      }).unwrap();
+      toast.success("Refund done successfully.");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.data?.message || err.error || "Error in Refunding");
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -41,9 +63,11 @@ const CancelledBookingScreen = () => {
               <>
                 <hr />
                 <Button
+                  value={bookingData._id}
                   variant={bookingData.isRefunded ? "success" : "danger"}
                   disabled={bookingData.isRefunded}
                   className="w-100"
+                  onClick={handelRefund}
                 >
                   {bookingData.isRefunded ? "Refunded" : "Confirm Refund"}
                 </Button>

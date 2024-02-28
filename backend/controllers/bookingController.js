@@ -134,7 +134,8 @@ const updateBooking = async (req, res) => {
     });
     res.status(200).json(updatedBooking);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Error :", error);
+    res.status(500).json({ error: "Error is processing" });
   }
 };
 

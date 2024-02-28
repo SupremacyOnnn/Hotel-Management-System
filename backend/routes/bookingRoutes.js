@@ -28,6 +28,7 @@ router.route("/roomBookingInRange").post(getRoomsAvialabity);
 router.route("/user/:userId").get(getBookingsByUserId);
 router.route("/hotel/inRange").post(getBookingsByHotelIdInDateRange);
 router.route("/hotel/prev").post(getPrevBookingsByHotelId);
+// router.route("/hotel/update/:id").patch(updateBooking);
 // router.route("/hotel/inRange").post(getBookingsByHotelIdInRange);
 // router.route("/user/:userId/after").get(getBookingsOnOrAfterCurrentDate);
 // router.route("/user/:userId/before").get(getBookingsBeforeCurrentDate);
@@ -35,7 +36,7 @@ router.route("/hotel/prev").post(getPrevBookingsByHotelId);
 // Route to update an existing booking by ID
 router
   .route("/:id")
-  .put(protect, updateBooking)
+  .patch(protect, updateBooking)
   .delete(protect, deleteBookingById)
   .get(protect, getBookingById);
 

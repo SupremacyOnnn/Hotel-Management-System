@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "../components/Caurasel";
 import { useGetHotelByIDQuery } from "../slices/hotelApiSlice";
 import { useParams } from "react-router-dom";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Loader from "../components/Loader";
 import ImageCarousel from "../components/ImageCauracel";
 import SegementedCauracel2 from "../components/SegementedCauracel2";
@@ -30,9 +30,9 @@ const HotelScreen = () => {
     return <div>Error loading hotel data</div>;
   }
 
-  function handleClick() {
-    console.log(roomData);
-  }
+  // function handleClick() {
+  //   console.log(roomData);
+  // }
 
   if (!hotelData || !hotelData.mainPicture) {
     return <div>No hotel data available</div>;
@@ -111,7 +111,7 @@ const HotelScreen = () => {
         </>
       )}
 
-      <Button onClick={handleClick}>Click me</Button>
+      {/* <Button onClick={handleClick}>Click me</Button> */}
     </>
   );
 };
